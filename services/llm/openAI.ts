@@ -1,18 +1,9 @@
 import OpenAI from "openai";
-
-export interface Message {
-  role: "user" | "assistant" | "system";
-  content: string;
-}
+import type { Message, StructuredMessage } from "./types.ts";
 
 export interface SendMessageOptions {
   messages: Message[];
   maxTokens?: number;
-}
-
-export interface StructuredMessage {
-  explanation: string;
-  decision: boolean;
 }
 
 export async function sendMessage({
@@ -24,7 +15,7 @@ export async function sendMessage({
   });
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-4",
+    model: "gpt-4o-mini",
     messages: messages,
     tools: [
       {
